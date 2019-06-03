@@ -8,7 +8,7 @@ Shell script to install a [ClassicBets](https://classicbets.net) Masternode on a
 Installation of masternode on VPS
 ----------------------------
 ```
-git clone https://github.com/ClassicBets/cbet-mn/
+https://github.com/ClassicBets/cbet-mn.git
 cd cbet-mn-install
 bash cbet-mn-install.sh
 ```
