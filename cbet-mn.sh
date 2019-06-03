@@ -64,4 +64,82 @@ function mn_install_daemoninstall()
   sleep 5
 }
 
+# Function : mn_install_daemon
+function mn_install_daemon()
+{
+  echo -e " "
+  echo -e "C: INSTALLING CLASSICBETS MASTERNODE"
+  echo -e "===================================="
+  echo -e "---[A] STARING DAEMON"
+  $COIN_DAEMON -daemon -server -listen
+  sleep 30
+  echo -e "---[B] STOPPING DAEMON"
+  $COIN_CLI stop
+  sleep 20
+  echo -e "---[C] PRIVATE KEY REQUEST"
+  echo -e " "
+  echo -e "Masternode Private key"
+  echo -e "( In your hot wallet open Console and type masternode genkey , copy generated masternode key and past it here )"
+  echo -e "Enter your masternode private key:"
+  read -e COINKEY
+  echo -e " "
+  echo -e "---[D] GENERATING RPC CREDENTIALS"
+  RPCUSER=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w10 | head -n1)
+  RPCPASSWORD=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w22 | head -n1)
+  echo -e "---[E] COLLECTING CONFIGURATION FILE"
+
+  cat << EOF > /root/.classicbets/classicbets.conf
+rpcuser=$RPCUSER
+rpcpassword=$RPCPASSWORD
+rpcallowip=127.0.0.1
+listen=1
+server=1
+daemon=1
+staking=0
+enablezeromint=0
+addnode=68.183.64.109:7777
+addnode=104.248.18.75:7777
+addnode=157.230.31.231:7777
+addnode=104.248.137.59:7777
+addnode=134.209.226.96:7777
+addnode=46.101.160.38:7777
+addnode=46.101.149.216:7777
+addnode=207.154.233.197:7777
+port=$COIN_PORT
+maxconnections=64
+masternode=1
+externalip=$NODEIP:$COIN_PORT
+masternodeprivkey=$COINKEY
+EOF
+  
+  echo -e "---[F] STARTING DAEMON"
+  $COIN_DAEMON -daemon -server -listen
+  sleep 20
+  clear
+  echo -e " "
+  echo -e "----------------------------------------------------------------"
+  echo -e "ClassicBets - P2P Cryptocurrency for classic betting games"
+  echo -e "----------------------------------------------------------------"
+  echo -e " "
+  echo -e "Masternode has been successfylly installed";
+  echo -e " "
+  echo -e "PrivKey       : $COINKEY"
+  echo -e "ExternalIp    : $NODEIP:$COIN_PORT"
+  echo -e "RPC Username  : $RPCUSER"
+  echo -e "RPC Password  : $RPCPASSWORD"
+  echo -e " "
+  echo -e "Check sync and status of wallet and daemon with classicbets-cli getinfo"
+  echo -e "Check masternode syncing with classicbets-cli mnsync status"
+  echo -e "Check masternode status with classicbets-cli masternode status"
+  echo -e "Stop daemon with classicbets-cli stop"
+  echo -e "Start daemon with classicbetsd -daemon -listen -server"
+  echo -e " "
+}
+
+# Initializing installation script
+clear
+mn_install_head
+mn_install_dependencies
+mn_install_daemoninstall
+mn_install_daemon
 
