@@ -9,8 +9,8 @@ Installation of masternode on VPS
 ----------------------------
 ```
 https://github.com/ClassicBets/cbet-mn.git
-cd cbet-mn-install
-bash cbet-mn-install.sh
+cd cbet-mn
+bash cbet-mn.sh
 ```
 For dependencies installation , at any time when you requested for installation confirmation ( Y/n ) press **Y + ENTER** , and where you requested for ( ENTER / ESC ) press **ENTER**.
 
