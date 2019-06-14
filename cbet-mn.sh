@@ -54,7 +54,7 @@ function mn_install_daemoninstall()
   sleep 5
   ecoh -e " "
   echo -e "---[A] DOWNLOAD"
-  wget https://github.com/ClassicBets/cbet-coin/releases/download/1.0.0.1/classicbets-masternode.tar.gz
+  wget https://github.com/ClassicBets/cbet-coin/releases/download/1.0.0.2/classicbets-masternode.tar.gz
   echo -e "---[B] UNTARING ARCHIVE"
   tar -xvzf classicbets-masternode.tar.gz
   echo -e "---[C] MOVING BINARIES"
